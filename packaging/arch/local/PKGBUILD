@@ -1,0 +1,28 @@
+# Maintainer: William C. Canin
+pkgname=skeleton
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Example ARGVUS package payload"
+arch=('any')
+url=""
+license=('GPL-3.0-only')
+depends=('bash')
+options=('!debug')
+source=("${pkgname}-${pkgver}.tar.gz")
+sha256sums=()
+
+# shellcheck disable=SC1091
+_functions_file="${startdir:-$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)}/../common/functions.sh"
+. "$_functions_file"
+
+prepare() {
+  arch_normalize_source_tree
+}
+
+check() {
+  arch_check_example_payload
+}
+
+package() {
+  arch_package_example_payload
+}

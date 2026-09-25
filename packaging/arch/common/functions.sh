@@ -39,8 +39,9 @@ arch_check_example_payload() {
 arch_package_example_payload() {
 	local source_root="${srcdir}/${pkgname}-${pkgver}"
 
-	install -Dm755 "${source_root}/src/usr/bin/argvus-hello" \
-		"${pkgdir}/usr/bin/argvus-hello"
+    cp -a "${source_root}/src/." "${pkgdir}/"
+    find "${pkgdir}" -type f -name '*.sh' -exec chmod 755 {} +
+   
 	install -Dm644 "${source_root}/LICENSE" \
 		"${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

@@ -25,6 +25,13 @@ build/         build outputs (git-ignored)
   release.yml  build + signing + publish to argvus/packages (tags v*)
 ```
 
+## Desktop package model
+
+Depend on `argvus` (the master package) in `depends=()`. Installing this package then
+brings in the desktop, and no install order is required. Desktop tools are
+subcommands of `argvus`; do not ship a separate executable for a function that the
+`argvus` CLI already provides.
+
 ## Prerequisites (development machine)
 
 Arch-based system with `make`, `git`, `gnupg` and the `base-devel` group.

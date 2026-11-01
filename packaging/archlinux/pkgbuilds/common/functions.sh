@@ -31,15 +31,15 @@ arch_normalize_source_tree() {
 arch_check_example_payload() {
 	local source_root="${srcdir}/${pkgname}-${pkgver}"
 
-	test -x "${source_root}/src/usr/bin/argvus-hello"
-	test "$("${source_root}/src/usr/bin/argvus-hello")" = \
+	test -x "${source_root}/packaging/archlinux/src/usr/bin/argvus-hello"
+	test "$("${source_root}/packaging/archlinux/src/usr/bin/argvus-hello")" = \
 		"Hello, ARGVUS Skeleton Package!"
 }
 
 arch_package_example_payload() {
 	local source_root="${srcdir}/${pkgname}-${pkgver}"
 
-    cp -a "${source_root}/src/." "${pkgdir}/"
+	cp -a "${source_root}/packaging/archlinux/src/." "${pkgdir}/"
     find "${pkgdir}" -type f -name '*.sh' -exec chmod 755 {} +
    
 	install -Dm644 "${source_root}/LICENSE" \

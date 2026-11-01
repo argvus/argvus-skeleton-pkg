@@ -38,7 +38,7 @@ Paste the command output or error message.
 **Repository state**
 
 - Commit / tag: e.g. `main@abc1234`, `v0.1.0`
-- PKGBUILD involved: `packaging/arch/local/PKGBUILD` / `packaging/arch/ci/PKGBUILD`
+- PKGBUILD involved: `packaging/archlinux/pkgbuilds/local/PKGBUILD` / `packaging/archlinux/pkgbuilds/remote/PKGBUILD`
 - `url` in the CI PKGBUILD: [filled / empty]
 
 **Environment (please complete the following information):**

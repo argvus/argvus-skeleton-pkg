@@ -35,8 +35,8 @@ validate:
 	@tools/sh/validate.sh
 
 lint:
-	@shellcheck tools/sh/*.sh packaging/arch/common/*.sh src/usr/bin/argvus-hello
-	@bash -n tools/sh/*.sh packaging/arch/common/*.sh src/usr/bin/argvus-hello
+	@shellcheck tools/sh/*.sh packaging/archlinux/pkgbuilds/common/*.sh packaging/archlinux/src/usr/bin/argvus-hello
+	@bash -n tools/sh/*.sh packaging/archlinux/pkgbuilds/common/*.sh packaging/archlinux/src/usr/bin/argvus-hello
 	@git diff --check
 	@echo "Lint OK"
 

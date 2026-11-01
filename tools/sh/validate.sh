@@ -19,8 +19,8 @@ require_command shellcheck
 
 cd "$ROOT_DIR"
 
-shellcheck tools/sh/*.sh packaging/arch/common/*.sh src/usr/bin/argvus-hello
-bash -n tools/sh/*.sh packaging/arch/common/*.sh src/usr/bin/argvus-hello
+shellcheck tools/sh/*.sh packaging/archlinux/pkgbuilds/common/*.sh packaging/archlinux/src/usr/bin/argvus-hello
+bash -n tools/sh/*.sh packaging/archlinux/pkgbuilds/common/*.sh packaging/archlinux/src/usr/bin/argvus-hello
 
 metadata() {
 	bash -c '
@@ -31,12 +31,12 @@ metadata() {
 	' bash "$1"
 }
 
-ci_metadata="$(metadata packaging/arch/ci/PKGBUILD)"
-local_metadata="$(metadata packaging/arch/local/PKGBUILD)"
+ci_metadata="$(metadata packaging/archlinux/pkgbuilds/remote/PKGBUILD)"
+local_metadata="$(metadata packaging/archlinux/pkgbuilds/local/PKGBUILD)"
 [[ "$ci_metadata" == "$local_metadata" ]] || die \
 	"CI and local PKGBUILD metadata is out of sync"
 
-for pkgbuild_dir in packaging/arch/ci packaging/arch/local; do
+for pkgbuild_dir in packaging/archlinux/pkgbuilds/remote packaging/archlinux/pkgbuilds/local; do
 	pkgbuild="$pkgbuild_dir/PKGBUILD"
 	[[ -f "$pkgbuild" ]] || die "missing $pkgbuild"
 	(

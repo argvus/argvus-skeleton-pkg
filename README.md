@@ -39,10 +39,10 @@ For package metadata only:
 
 ```sh
 make validate
-makepkg -p packaging/arch/ci/PKGBUILD --printsrcinfo
+makepkg -p packaging/archlinux/pkgbuilds/remote/PKGBUILD --printsrcinfo
 ```
 
-See [packaging/arch/README.md](packaging/arch/README.md) for the difference
+See [packaging/archlinux/README.md](packaging/archlinux/README.md) for the difference
 between local and release builds.
 
 ## Desktop package model

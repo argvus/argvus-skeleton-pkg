@@ -8,7 +8,7 @@ BUILD_DIR="$ROOT_DIR/build"
 ARTIFACTS_DIR="$BUILD_DIR/artifacts"
 DIST_DIR="$BUILD_DIR/dist"
 
-PKGBUILD_DIR="$ROOT_DIR/packaging/arch/local"
+PKGBUILD_DIR="$ROOT_DIR/packaging/archlinux/pkgbuilds/local"
 PKGBUILD="$PKGBUILD_DIR/PKGBUILD"
 
 for command_name in makepkg sha256sum tar awk find; do
@@ -51,15 +51,15 @@ tar -czf "$archive" \
   --exclude='./dist' \
   --exclude='./target' \
   --exclude='./tools' \
-  --exclude='./packaging/arch/local/src' \
-  --exclude='./packaging/arch/local/pkg' \
-  --exclude='./packaging/arch/ci/src' \
-  --exclude='./packaging/arch/ci/pkg' \
-  --exclude='./packaging/arch/*/PKGBUILD.local' \
-  --exclude='./packaging/arch/local/*.pkg.tar*' \
-  --exclude='./packaging/arch/ci/*.pkg.tar*' \
-  --exclude='./packaging/arch/local/*.tar.gz' \
-  --exclude='./packaging/arch/ci/*.tar.gz' \
+  --exclude='./packaging/archlinux/pkgbuilds/local/src' \
+  --exclude='./packaging/archlinux/pkgbuilds/local/pkg' \
+  --exclude='./packaging/archlinux/pkgbuilds/remote/src' \
+  --exclude='./packaging/archlinux/pkgbuilds/remote/pkg' \
+  --exclude='./packaging/archlinux/*/PKGBUILD.local' \
+  --exclude='./packaging/archlinux/pkgbuilds/local/*.pkg.tar*' \
+  --exclude='./packaging/archlinux/pkgbuilds/remote/*.pkg.tar*' \
+  --exclude='./packaging/archlinux/pkgbuilds/local/*.tar.gz' \
+  --exclude='./packaging/archlinux/pkgbuilds/remote/*.tar.gz' \
   --exclude='./*.pkg.tar*' \
   --transform "s#^\./#${pkgname}-${pkgver}/#" \
   -C "$ROOT_DIR" .

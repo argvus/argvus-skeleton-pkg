@@ -6,17 +6,16 @@ package (part of the [ARGVUS](https://gitlab.com/argvus/) organization).
 ## Project layout
 
 ```text
-packaging/
-  arch/
-    ci/        PKGBUILD used by GitHub Actions (release built from a tag)
+packaging/archlinux/
+  src/         package payload (usr/ tree that is installed into /usr/)
+  pkgbuilds/
+    common/    shared packaging functions
     local/     PKGBUILD used for local builds (from the working tree)
-src/           package payload (usr/ tree that is installed into /usr/)
+    remote/    PKGBUILD used by GitHub Actions (release built from a tag)
 tools/
   sh/
     pkgbuild_local.sh   creates the local archive and runs makepkg
     validate.sh         required repository and metadata checks
-packaging/arch/common/
-  functions.sh          shared source-tree normalization for both PKGBUILDs
 build/         build outputs (git-ignored)
   artifacts/   source .tar.gz + src/ + pkg/ (kept for inspection)
   dist/        final .pkg.tar.zst (ready to install / publish)
@@ -57,7 +56,7 @@ What happens:
 1. The script creates `build/artifacts/<pkgname>-<pkgver>.tar.gz` from the
    working tree (excludes `.git`, `tools/`, `build/` and old artifacts).
 2. The `sha256` of that archive is computed and injected into a copy of the
-   temporary PKGBUILD copy in `packaging/arch/local/` (discarded when done) —
+   temporary PKGBUILD copy in `packaging/archlinux/pkgbuilds/local/` (discarded when done) —
    `sha256sums` never uses `SKIP`.
 3. `makepkg` runs with `BUILDDIR`/`SRCDEST` pointed at `build/artifacts` and
    `PKGDEST` at `build/dist`, validating the checksum ("Passed").
@@ -133,7 +132,7 @@ signs without it).
 
 ## Publish a release
 
-1. Fill in `url` in `packaging/arch/ci/PKGBUILD` with the real repository:
+1. Fill in `url` in `packaging/archlinux/pkgbuilds/remote/PKGBUILD` with the real repository:
    - GitHub: `url="https://github.com/argvus/<pkg>"` (the source uses
      `${url}/archive/refs/tags/v${pkgver}.tar.gz`). `prepare()` normalizes the
      GitHub top-level directory before packaging.
@@ -141,8 +140,8 @@ signs without it).
      `https://gitlab.com/argvus/<pkg>/-/archive/v${pkgver}/<pkg>-v${pkgver}.tar.gz`.
    - Without `url`, the release **fails on purpose** in GitHub Actions with a
      clear message.
-2. Check versions/metadata in `packaging/arch/local/PKGBUILD` and
-   `packaging/arch/ci/PKGBUILD`.
+2. Check versions/metadata in `packaging/archlinux/pkgbuilds/local/PKGBUILD` and
+   `packaging/archlinux/pkgbuilds/remote/PKGBUILD`.
 3. Generate and commit the changelog (see
    [Changelog](#changelog-changelogmd)).
 4. Create and push the tag:

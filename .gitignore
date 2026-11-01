@@ -8,9 +8,7 @@ TODO.txt
 *.sig
 .release/
 packages-repo/
-packaging/arch/ci/src/
-packaging/arch/ci/pkg/
-packaging/arch/local/src/
-packaging/arch/local/pkg/
-packaging/arch/local/PKGBUILD.local
-packaging/arch/*/.PKGBUILD.local.*
+packaging/archlinux/pkgbuilds/remote/pkg/
+packaging/archlinux/pkgbuilds/local/pkg/
+packaging/archlinux/pkgbuilds/local/PKGBUILD.local
+packaging/archlinux/*/.PKGBUILD.local.*

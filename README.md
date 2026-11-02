@@ -31,9 +31,11 @@ make install
 ```
 
 `make build` creates a deterministic local source archive in
-`build/artifacts/` and a package in `build/dist/`. `make install` requires
-`sudo` and installs the one package found in that directory without a blanket
-`--overwrite` rule.
+`build/artifacts/` and a package in `build/dist/`. It skips runtime dependency
+resolution and checks that declared `makedepends` and `checkdepends` are already
+installed; it does not install dependencies. `make install` requires `sudo`
+and uses pacman to install the package and resolve its runtime dependencies from
+the configured repositories.
 
 For package metadata only:
 

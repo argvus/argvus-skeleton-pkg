@@ -33,3 +33,8 @@ To inspect metadata without building:
 makepkg -p packaging/archlinux/pkgbuilds/remote/PKGBUILD --printsrcinfo
 makepkg -p packaging/archlinux/pkgbuilds/local/PKGBUILD --printsrcinfo
 ```
+
+The local build uses `makepkg --nodeps`, so runtime `depends` are resolved when
+the package is installed. The build helper checks declared `makedepends` and
+`checkdepends` with `pacman -T`; install those tools beforehand. It does not
+install dependencies or change configured repositories.

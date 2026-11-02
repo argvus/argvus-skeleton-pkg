@@ -35,6 +35,33 @@ read -r pkgname pkgver <<<"$(bash -c 'source "$1"; printf "%s %s" "$pkgname" "$p
 	exit 1
 }
 
+build_dependencies="$(bash -c '
+	source "$1"
+	for dependency in "${makedepends[@]}" "${checkdepends[@]}"; do
+		[[ -n "$dependency" ]] && printf "%s\n" "$dependency"
+	done
+' bash "$PKGBUILD")"
+if [[ -n "$build_dependencies" ]]; then
+	mapfile -t build_dependencies <<< "$build_dependencies"
+	command -v pacman >/dev/null 2>&1 || {
+		printf 'error: pacman is required to check build dependencies\n' >&2
+		exit 1
+	}
+	if missing_dependencies="$(pacman -T "${build_dependencies[@]}")"; then
+		:
+	else
+		pacman_status=$?
+		if (( pacman_status == 127 )); then
+			printf 'error: missing build/check dependencies for %s:\n%s\n' \
+				"$pkgname" "$missing_dependencies" >&2
+		else
+			printf 'error: pacman could not check build dependencies for %s (exit %s)\n' \
+				"$pkgname" "$pacman_status" >&2
+		fi
+		exit 1
+	fi
+fi
+
 mkdir -p "$ARTIFACTS_DIR" "$DIST_DIR"
 
 archive="$ARTIFACTS_DIR/${pkgname}-${pkgver}.tar.gz"

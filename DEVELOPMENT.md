@@ -61,6 +61,12 @@ What happens:
 3. `makepkg` runs with `BUILDDIR`/`SRCDEST` pointed at `build/artifacts` and
    `PKGDEST` at `build/dist`, validating the checksum ("Passed").
 
+Local builds pass `--nodeps` to `makepkg`: runtime `depends` are resolved by
+pacman when the package is installed, not while it is being built. Before
+creating build outputs, the helper checks declared `makedepends` and
+`checkdepends` with `pacman -T`; these build and test tools must already be
+installed. The helper never installs dependencies.
+
 Result:
 
 ```text
@@ -73,6 +79,9 @@ Install the locally built package:
 ```sh
 make install
 ```
+
+`make install` uses pacman to resolve and install runtime dependencies from the
+repositories already configured on the system.
 
 Clean build outputs:
 
